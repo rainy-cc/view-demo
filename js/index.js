@@ -1,9 +1,9 @@
 /*
 *页面Js交互：
-* 		author：xc 
+* 		author：xc
 * 		date： 2016
 *		contain： audio canvas css3 mousewheel 预加载等等；
-* 
+*
 */
 
 var oHeader = $('header');
@@ -49,7 +49,7 @@ var enterData = [
 			oDot.style.opacity = 1;
 			setCss3(oCarousel,{ transform: 'translate(0,0)' })
 			setCss3(oDot,{ transform: 'translate(0,0)' })
-			
+
 		},
 		leaveFn: function(){
 			var oHomeWrap = $('homeWrap');
@@ -72,7 +72,7 @@ var enterData = [
 			var oPlane3 = getByClass(oCourseWrap,'plane3')[0];
 			setCss3(oPlane1 , { transform: 'translate(0,0)' });
 			setCss3(oPlane2 , { transform: 'translate(0,0)' });
-			setCss3(oPlane3 , { transform: 'translate(0,0)' });	
+			setCss3(oPlane3 , { transform: 'translate(0,0)' });
 		},
 		leaveFn: function(){
 			var oCourseWrap = $('courseWrap');
@@ -170,7 +170,7 @@ function loading(){
 	oSpan.addEventListener('mozTransitionend', loadingOver, false);
 	oSpan.addEventListener('oTransitionend', loadingOver, false);
 	oSpan.addEventListener('transitionend', loadingOver, false);
-	//加载结束	
+	//加载结束
 	function loadingOver(){
 		if(oSpan.style.width == '100%'){
 			oSpan.style.display = 'none';
@@ -197,7 +197,7 @@ function navClick(){
 		oUpDiv.style.width = '100%';
 	//设置箭头的初始位置（居中）
 	oArrow.style.left = aNavLi[0].offsetLeft + aNavLi[0].offsetWidth/2 - oArrow.offsetWidth/2 + 'px';
-	
+
 	for( var i = 0; i<aNavLi.length; i++ ){
 		aNavLi[i].index = i;
 		aNavLi[i].onclick = function(){
@@ -239,10 +239,10 @@ function toChange(index){
 	aSpans[index].className = 'active';
 	//进出场动画：当前进，上一个prevIndex还原
 	if( enterData[index].enterFn ){
-		enterData[index].enterFn();	
+		enterData[index].enterFn();
 	};
 	if( enterData[prevIndex].leaveFn ){
-		enterData[prevIndex].leaveFn();	
+		enterData[prevIndex].leaveFn();
 	};
 }
 //每一屏的高度设置
@@ -255,7 +255,7 @@ function setSection(){
 		aListItem[i].style.height = contentHeight + 'px';
 		oList.style.top = -iNow * contentHeight + 'px';
 	}
-	
+
 }
 /*
 //让每一屏的内容区域垂直居中;
@@ -292,11 +292,11 @@ function mouseScroll(){
 				timer = setTimeout(function(){
 					changeFn(ev);
 				}, 200);
-			}, 
+			},
 			false
 		);
 	};
-	
+
 	function changeFn(ev){
 		//处理针对prevIndex的小BUG
 		if( iNow == 0 && ev.wheelDelta == 120 || ev.detail == -3){
@@ -305,7 +305,7 @@ function mouseScroll(){
 		if( iNow == aListItem.length-1 && ev.wheelDelta == -120 || ev.detail == 3){
 			return;
 		};
-		prevIndex = iNow;	
+		prevIndex = iNow;
 		//console.log(prevIndex)
 		if( ev.wheelDelta == 120 || ev.detail == -3 ){
 			//向上滚动
@@ -342,11 +342,11 @@ function music(){
 	var oAudio = $('myAudio');
 	var onoff = false;//控制播放还是暂停
 	oMusic.style.backgroundImage = 'url(./img/musicon.gif)';
-	oAudio.play();//播放;	
+	oAudio.play();//播放;
 	oMusic.onclick = function(){
 		if(onoff){
-			oMusic.style.backgroundImage = 'url(./img/musicon.gif)';	
-			oAudio.play();//播放;	
+			oMusic.style.backgroundImage = 'url(./img/musicon.gif)';
+			oAudio.play();//播放;
 		}else{
 			oMusic.style.backgroundImage = 'url(./img/musicoff.gif)';
 			oAudio.pause();//暂停;
@@ -376,7 +376,7 @@ function carousel(){
 				//从左向右的切换
 				aTabImg[lastIndex].className = 'leftHide';
 				aTabImg[this.index].className = 'rightShow';
-				
+
 			}else if(lastIndex > this.index){
 				//右向左的切换
 				aTabImg[lastIndex].className = 'rightHide';
@@ -421,7 +421,7 @@ function aboutFn(){
 	var aDiv = getByClass(photos, 'imgBg');
 	sliceImg(aUl[0],aDiv[0]);
 	sliceImg(aUl[1],aDiv[1]);
-	
+
 	//封装四个小图片的生成与运动
 	function sliceImg(obj, scaleImg){
 		var src = '';
@@ -450,7 +450,7 @@ function aboutFn(){
 			鼠标移入四张图从四个方向变化，同时后面的图有个缩放的效果;
 		*/
 		//保存切入方向和要移动的数值;
-		var aSliceImg= obj.getElementsByTagName('img'); 
+		var aSliceImg= obj.getElementsByTagName('img');
 		var dirArr = [
 			{ direction : 'top' , val : h },
 			{ direction : 'left' , val : -w*2 },
@@ -463,18 +463,20 @@ function aboutFn(){
 				aSliceImg[i].style[ dirArr[i].direction ] = dirArr[i].val + 'px';
 			};
 			//可以封装一个处理css3前缀的函数;
-			scaleImg.style.webkitTransform = scaleImg.style.mozTransform = scaleImg.style.oTransform = scaleImg.style.transform = 'scale(1)';
+			setCss3(scaleImg,{transform: 'scale(1)'});
+			// scaleImg.style.webkitTransform = scaleImg.style.mozTransform = scaleImg.style.oTransform = scaleImg.style.transform = 'scale(1)';
 		};
 		//还原，需要拿到旧值;
 		obj.onmouseout = function(){
 			for( var i = 0; i<aSliceImg.length; i++ ){
 				aSliceImg[i].style[ dirArr[i].direction ] = aSliceImg[i]['origin'+dirArr[i].direction]  + 'px';
-			};
-			scaleImg.style.webkitTransform = scaleImg.style.mozTransform = scaleImg.style.oTransform = scaleImg.style.transform = 'scale(1.5)';
+			}
+			setCss3(scaleImg,{transform: 'scale(1.5)'});
+			// scaleImg.style.webkitTransform = scaleImg.style.mozTransform = scaleImg.style.oTransform = scaleImg.style.transform = 'scale(1.5)';
 		};
 
 	}
-	
+
 }
 //第五屏：opacity canvas
 teamFn();
@@ -495,7 +497,7 @@ function teamFn(){
 	for( var i = 0; i<aLimember.length; i++ ){
 		aLimember[i].index = i;
 		aLimember[i].style.backgroundPosition = -i*w +'px 0';
-		
+
 		aLimember[i].onmouseover = function(){
 			createCanvas();
 			oCanvas.style.left = this.index * w + 'px';
@@ -525,13 +527,13 @@ function teamFn(){
 			var balls = [];//存放小球的的数组;
 			//绘制圆
 			timer = setInterval(function(){
-				//清空画布	
+				//清空画布
 				context.clearRect( 0, 0, oCanvas.width, oCanvas.height );
-				
+
 				for(var i=0;i<balls.length;i++){
-					
+
 					balls[i].angle += 5;
-					
+
 					balls[i].x = balls[i].startX - Math.sin(balls[i].angle * Math.PI/180) * balls[i].step;
 					balls[i].y = balls[i].startY - (balls[i].angle * Math.PI/180) * balls[i].step;
 					//删除小球;
@@ -539,9 +541,9 @@ function teamFn(){
 						balls.splice( i, 1 );
 						console.log(balls.length);
 					};
-					
+
 				};
-				
+
 				for(var i=0;i<balls.length;i++){
 					//绘制
 					context.fillStyle = 'rgba('+balls[i].r+','+balls[i].g+','+balls[i].b+','+balls[i].a+')';
@@ -551,9 +553,9 @@ function teamFn(){
 					context.closePath();
 					context.fill();
 				};
-				
+
 			}, 17);
-			
+
 			//生成圆
 			timer2 = setInterval(function(){
 				var x = Math.random() * oCanvas.width; //圆心
@@ -582,7 +584,7 @@ function teamFn(){
 					startY : y
 				});
 			},100);
-		};	
+		};
 	}
 	//删除canvas
 	function deleteCanvas(){
@@ -591,11 +593,11 @@ function teamFn(){
 		oMember.removeChild(oCanvas);
 		oCanvas = null;
 	}
-	
-	
+
+
 }
 
-	
+
 
 //通过id获取元素
 function $(id){
@@ -636,4 +638,3 @@ function setCss3 (obj,attrObj) {
 		obj.style["ms" + attr] = attrObj[i];
 	}
 }
-
